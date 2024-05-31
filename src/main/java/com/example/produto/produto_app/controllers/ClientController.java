@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -31,7 +32,10 @@ public class ClientController {
     ClientRepositoy clientRepositoy;
 
     @GetMapping("/clients")
-    public ResponseEntity<List<ClientModel>> index() {
+    public ResponseEntity<List<ClientModel>> index(@RequestParam(required = false) String search) {
+        if (search != null && !search.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(clientRepositoy.findByNameUnaccent("%"+search+"%"));
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(clientRepositoy.findAll());
     }
 
