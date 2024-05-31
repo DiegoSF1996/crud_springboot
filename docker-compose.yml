@@ -3,7 +3,6 @@ version: '3.8'
 services:
   postgres:
     image: postgres:15
-    container_name: postgres
     environment:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
@@ -17,7 +16,6 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    container_name: spring_app
     ports:
       - "8080:8080"
     environment:
