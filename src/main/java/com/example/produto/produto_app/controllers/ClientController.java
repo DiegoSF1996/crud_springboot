@@ -45,22 +45,22 @@ public class ClientController {
     }
 
     @PostMapping("/clients")
-    public ResponseEntity<ClientModel> saveProduct(@RequestBody @Valid ClientRecordDto productRecordDto) {
-        //var productModel = new ClientModel();
-        ClientModel productModel = new ClientModel();
-        BeanUtils.copyProperties(productRecordDto, productModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(clientRepositoy.save(productModel));
+    public ResponseEntity<ClientModel> saveProduct(@RequestBody @Valid ClientRecordDto clientRecordDto) {
+        //var clientModel = new ClientModel();
+        ClientModel clientModel = new ClientModel();
+        BeanUtils.copyProperties(clientRecordDto, clientModel);
+        return ResponseEntity.status(HttpStatus.CREATED).body(clientRepositoy.save(clientModel));
     }
 
     @PutMapping("/clients/{id}")
-    public ResponseEntity<Object> update(@PathVariable(value="id") UUID id, @RequestBody @Valid ClientRecordDto productRecordDto) {
+    public ResponseEntity<Object> update(@PathVariable(value="id") UUID id, @RequestBody @Valid ClientRecordDto clientRecordDto) {
         Optional<ClientModel> client0 = clientRepositoy.findById(id);
         if(client0.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found.");
         }
-        var productModel = client0.get();
-        BeanUtils.copyProperties(productRecordDto, productModel);
-        return ResponseEntity.status(HttpStatus.OK).body(clientRepositoy.save(productModel));
+        var clientModel = client0.get();
+        BeanUtils.copyProperties(clientRecordDto, clientModel);
+        return ResponseEntity.status(HttpStatus.OK).body(clientRepositoy.save(clientModel));
     }
 
     @DeleteMapping("/clients/{id}")
